@@ -485,6 +485,63 @@
       .x-ayah figcaption { display: grid; gap: 10px; justify-items: center; }
       .x-ayah__en { font: italic 400 clamp(19px, 2.2vw, 22px)/1.55 var(--x-serif); color: #e4defc; max-width: 34ch; }
       .x-ayah__ref { font: 500 13px/1.3 var(--sans); letter-spacing: 0.14em; text-transform: uppercase; color: #bdb8e6; }
+
+      /* ---------- Papa ji keepsake photo and voice notes ---------- */
+      .x-keepsake { margin: 10px auto 0; width: min(100%, 280px); display: grid; gap: 16px; justify-items: center; }
+      @media (min-width: 600px) { .x-keepsake { width: 320px; } }
+      .x-keep {
+        display: block; width: 100%; padding: 10px 10px 12px; border: 0; border-radius: 10px; background: #fbf6ea; cursor: zoom-in;
+        transform: rotate(-2.5deg); transition: transform 300ms var(--ease-out);
+        box-shadow: 0 0 0 1px rgb(255 248 230 / 0.7), 0 0 40px 8px rgb(255 236 200 / 0.22), 0 18px 44px rgb(10 8 40 / 0.5);
+      }
+      .x-keep img { display: block; width: 100%; height: auto; aspect-ratio: 1 / 1; object-fit: cover; border-radius: 4px; }
+      .x-keep:hover, .x-keep:active { transform: rotate(-1deg) translateY(-3px); }
+      .x-keep:focus-visible { outline: 3px solid #fff4dc; outline-offset: 6px; }
+      .x-keep__cap { font: 600 26px/1.25 "Caveat", var(--x-round); color: #fff4dc; text-shadow: 0 0 18px rgb(255 236 200 / 0.3); max-width: 22ch; }
+      .x-voices { display: grid; gap: 12px; margin-top: 14px; text-align: left; min-width: 0; }
+      .x-voices__title { text-align: center; font: italic 400 clamp(26px, 3.4vw, 32px)/1.2 var(--x-serif); color: #f3efff; }
+      .x-voices__sub { text-align: center; font: 400 16px/1.5 var(--sans); color: #c9c3f0; margin-bottom: 6px; }
+      .x-voice {
+        display: grid; grid-template-columns: 56px minmax(0, 1fr) 26px; align-items: center; gap: 14px; min-width: 0;
+        padding: 14px 16px 12px 14px; border-radius: 24px; border: 1px solid rgb(201 195 240 / 0.26);
+        background: linear-gradient(135deg, rgb(201 195 240 / 0.18), rgb(150 140 215 / 0.08));
+        box-shadow: inset 0 1px 0 rgb(255 255 255 / 0.08), 0 12px 32px rgb(10 8 40 / 0.3);
+      }
+      .x-voice audio { display: none; }
+      .x-voice__play {
+        width: 56px; height: 56px; border-radius: 50%; border: 0; padding: 0; display: grid; place-items: center; cursor: pointer;
+        background: #f3efff; color: #2f2c62; transition: transform 200ms var(--ease-out);
+      }
+      .x-voice__play svg { width: 24px; height: 24px; fill: currentColor; }
+      .x-voice__i-pause, .x-voice.is-playing .x-voice__i-play { display: none; }
+      .x-voice.is-playing .x-voice__i-pause { display: block; }
+      .x-voice__play:active { transform: scale(0.94); }
+      .x-voice__play:focus-visible, .x-voice__bar:focus-visible { outline: 3px solid #fff4dc; outline-offset: 3px; }
+      .x-voice.is-playing .x-voice__play { animation: x-voice-pulse 1.8s ease-out infinite; }
+      @keyframes x-voice-pulse { from { box-shadow: 0 0 0 0 rgb(243 239 255 / 0.45); } to { box-shadow: 0 0 0 14px rgb(243 239 255 / 0); } }
+      .x-voice__body { min-width: 0; display: grid; gap: 2px; }
+      .x-voice__name { font: 500 16px/1.3 var(--sans); color: #f3efff; overflow-wrap: anywhere; }
+      .x-voice__bar { --p: 0%; position: relative; height: 32px; display: flex; align-items: center; cursor: pointer; touch-action: none; border-radius: 8px; }
+      .x-voice__track { position: relative; flex: 1; height: 5px; border-radius: 99px; background: rgb(201 195 240 / 0.3); }
+      .x-voice__fill { position: absolute; top: 0; bottom: 0; left: 0; width: var(--p); border-radius: inherit; background: linear-gradient(90deg, #c9c3f0, #fff4dc); }
+      .x-voice__knob { position: absolute; top: 50%; left: var(--p); width: 14px; height: 14px; margin: -7px 0 0 -7px; border-radius: 50%; background: #fff4dc; box-shadow: 0 0 10px rgb(255 236 200 / 0.5); }
+      .x-voice__time { font: 400 13px/1.2 "Geist Mono", ui-monospace, monospace; color: #c9c3f0; font-variant-numeric: tabular-nums; }
+      .x-voice__wave { display: flex; align-items: center; gap: 3px; height: 28px; }
+      .x-voice__wave i { flex: 1; height: 100%; border-radius: 2px; background: #c9c3f0; transform: scaleY(0.22); opacity: 0.5; transition: opacity 300ms; }
+      .x-voice.is-playing .x-voice__wave i { opacity: 1; animation: x-voice-wave 0.9s ease-in-out infinite alternate; }
+      .x-voice.is-playing .x-voice__wave i:nth-child(2) { animation-delay: -0.3s; } .x-voice.is-playing .x-voice__wave i:nth-child(3) { animation-delay: -0.6s; }
+      .x-voice.is-playing .x-voice__wave i:nth-child(4) { animation-delay: -0.15s; } .x-voice.is-playing .x-voice__wave i:nth-child(5) { animation-delay: -0.45s; }
+      @keyframes x-voice-wave { from { transform: scaleY(0.2); } to { transform: scaleY(1); } }
+      @media (max-width: 420px) {
+        .x-voice { gap: 10px; padding: 12px 12px 10px; grid-template-columns: 52px minmax(0, 1fr) 22px; }
+        .x-voice__play { width: 52px; height: 52px; }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .x-keep, .x-voice__play, .x-voice__wave i { transition: none; }
+        .x-keep:hover, .x-keep:active { transform: rotate(-2.5deg); }
+        .x-voice.is-playing .x-voice__play { animation: none; box-shadow: 0 0 0 4px rgb(243 239 255 / 0.25); }
+        .x-voice.is-playing .x-voice__wave i { animation: none; transform: scaleY(0.65); }
+      }
       .x-dua {
         display: grid; gap: 10px; justify-items: center; margin-top: 8px; padding: 28px 20px; border-radius: 28px;
         background: linear-gradient(#2a2860, #232150); background-color: #232150;
@@ -974,6 +1031,9 @@
       <img data-asset="kuromi" src="maryam-kuromi.jpg" alt="" width="720" height="720" loading="lazy" decoding="async" />
       <img data-asset="sticker" src="maryam-kitty-sticker.jpg" alt="" width="720" height="720" loading="lazy" decoding="async" />
       <img data-asset="ears" src="maryam-kitty-ears.jpg" alt="" width="720" height="720" loading="lazy" decoding="async" />
+      <img data-asset="papa" src="papa-and-maryam.webp" alt="" width="640" height="640" loading="lazy" decoding="async" />
+      <audio data-asset="voiceone" src="papa-voice-1.mp3" preload="none"></audio>
+      <audio data-asset="voicetwo" src="papa-voice-2.mp3" preload="none"></audio>
     </div>
     <div class="page" id="top">
       <header class="nav glass" data-auto></header>
@@ -1036,7 +1096,10 @@
           "YXIiIHdpZHRoPSIxMjAwIiBoZWlnaHQ9IjY3MCIgbG9hZGluZz0ibGF6eSIgZGVjb2Rpbmc9ImFzeW5jIg==",
           "IGFsdD0iSGVsbG8gS2l0dHkgb24gYSBjbG91ZCwgc2VlbiBmcm9tIGJlaGluZCwgbG9va2luZyB1cCBhdCBvbmUgYnJpZ2h0IHN0YXIgYXMgYSBoZWFydCBiYWxsb29uIGZsb2F0cyB1cCIgLz4KPC9maWd1cmU+CjxkaXYgY2xhc3M9IngtYWJidSI+CjxwIGNsYXNzPSJ4LWFiYnVfX3dvcmRz",
           "Ij5Zb3VyIFBhcGEgamkgd291bGQg",
-          "YmUgc28gcHJvdWQgb2YgdGhlIHdvbWFuIHlvdSBhcmUuIEhpcyBsb3ZlIGlzIGluIHlvdXIga2luZG5lc3MsIHlvdXIgc3RyZW5ndGgsIGFuZCB5b3VyIGhlYXJ0LCBhbmQgaXQgaXNuJ3QgZ29pbmcgYW55d2hlcmUuPC9wPgo8ZmlndXJlIGNsYXNzPSJ4LWF5YWgiPgo8cCBjbGFzcz0ieC1hciIgZGlyPSJydGwiIGxhbmc9ImFyIj7Yo9mO2YTZjtinINio2ZDYsNmQ2YPZktix2ZAg2KfZhNmE2Y7ZkdmH2ZAg2KrZjti32ZLZhdmO2KbZkNmG2Y/ZkSDYp9mE2ZLZgtmP2YTZj9mI2KjZjzwvcD4KPGZpZ2NhcHRpb24+CjxwIGNsYXNzPSJ4LWF5YWhfX2VuIj7igJxVbnF1ZXN0aW9uYWJseSwgYnkgdGhlIHJlbWVtYnJhbmNlIG9mIEFsbGFoIGhlYXJ0cyBmaW5kIHJlc3Qu4oCdPC9wPgo8cCBjbGFzcz0ieC1heWFoX19yZWYiPlN1cmFoIEFyLVJhJ2QgMTM6Mjg8L3A+CjwvZmlnY2FwdGlvbj4KPC9maWd1cmU+CjxmaWd1cmUgY2xhc3M9IngtYXlhaCI+CjxwIGNsYXNzPSJ4LWFyIiBkaXI9InJ0bCIgbGFuZz0iYXIiPtmK2Y7YpyDYo9mO2YrZjtmR2KrZj9mH2Y7YpyDYp9mE2YbZjtmR2YHZktiz2Y8g2KfZhNmS2YXZj9i32ZLZhdmO2KbZkNmG2Y7Zkdip2Y8g250g2KfYsdmS2KzZkNi52ZDZiiDYpdmQ2YTZjtmJ2bAg2LHZjtio2ZDZkdmD2ZAg2LHZjtin2LbZkNmK2Y7YqdmLINmF2Y7YsdmS2LbZkNmK2Y7Zkdip2Ysg250g2YHZjtin2K/Zktiu2Y/ZhNmQ2Yog2YHZkNmKINi52ZDYqNmO2KfYr9mQ2Yog250g2YjZjtin2K/Zktiu2Y/ZhNmQ2Yog2KzZjtmG2Y7Zkdiq2ZDZijwvcD4KPGZpZ2NhcHRpb24+CjxwIGNsYXNzPSJ4LWF5YWhfX2VuIj7igJxPIHJlYXNzdXJlZCBzb3VsLCByZXR1cm4gdG8geW91ciBMb3JkLCB3ZWxsLXBsZWFzZWQgYW5kIHBsZWFzaW5nIHRvIEhpbSwgYW5kIGVudGVyIGFtb25nIE15IHJpZ2h0ZW91cyBzZXJ2YW50cywgYW5kIGVudGVyIE15IFBhcmFkaXNlLuKAnTwvcD4KPHAgY2xhc3M9IngtYXlhaF9fcmVmIj5TdXJhaCBBbC1GYWpyIDg5OjI34oCTMzA8L3A+CjwvZmlnY2FwdGlvbj4KPC9maWd1cmU+CjxwIGNsYXNzPSJ4LWFiYnVfX3dvcmRzIj5Ub2RheSwgYSBzdGFyIGlzIHNoaW5pbmcgYSBsaXR0bGUgYnJpZ2h0ZXIgZm9yIHlvdS48L3A+CjxmaWd1cmUgY2xhc3M9IngtYXlhaCI+CjxwIGNsYXNzPSJ4LWFyIiBkaXI9InJ0bCIgbGFuZz0iYXIiPtmB2Y7YpdmQ2YbZjtmRINmF2Y7YudmOINin2YTZkti52Y/Ys9mS2LHZkCDZitmP2LPZktix2YvYpyDbnSDYpdmQ2YbZjtmRINmF2Y7YudmOINin2YTZkti52Y/Ys9mS2LHZkCDZitmP2LPZktix2YvYpzwvcD4KPGZpZ2NhcHRpb24+CjxwIGNsYXNzPSJ4LWF5YWhfX2VuIj7igJxGb3IgaW5kZWVkLCB3aXRoIGhhcmRzaGlwIGNvbWVzIGVhc2UuIEluZGVlZCwgd2l0aCBoYXJkc2hpcCBjb21lcyBlYXNlLuKAnTwvcD4KPHAgY2xhc3M9IngtYXlhaF9fcmVmIj5TdXJhaCBBc2gtU2hhcmggOTQ6NeKAkzY8L3A+CjwvZmlnY2FwdGlvbj4KPC9maWd1cmU+CjxmaWd1cmUgY2xhc3M9IngtYXlhaCI+CjxwIGNsYXNzPSJ4LWFyIiBkaXI9InJ0bCIgbGFuZz0iYXIiPtmE2Y7YpyDZitmP2YPZjtmE2ZDZkdmB2Y8g2KfZhNmE2Y7ZkdmH2Y8g2YbZjtmB2ZLYs9mL2Kcg2KXZkNmE2Y7ZkdinINmI2Y/Ys9mS2LnZjtmH2Y7YpzwvcD4KPGZpZ2NhcHRpb24+CjxwIGNsYXNzPSJ4LWF5YWhfX2VuIj7igJxBbGxhaCBkb2VzIG5vdCBidXJkZW4gYSBzb3VsIGJleW9uZCB3aGF0IGl0IGNhbiBiZWFyLuKAnTwvcD4KPHAgY2xhc3M9IngtYXlhaF9fcmVmIj5TdXJhaCBBbC1CYXFhcmFoIDI6Mjg2PC9wPgo8L2ZpZ2NhcHRpb24+CjwvZmlndXJlPgo8cCBjbGFzcz0iZmluZXByaW50Ij5NaXNzaW5nIGhpbSBpcyBsb3ZlIHRvby4gWW91IG5ldmVyIGhhdmUgdG8gY2FycnkgaXQgYWxvbmUuPC9w",
+          "YmUgc28gcHJvdWQgb2YgdGhlIHdvbWFuIHlvdSBhcmUuIEhpcyBsb3ZlIGlzIGluIHlvdXIga2luZG5lc3MsIHlvdXIgc3RyZW5ndGgsIGFuZCB5b3VyIGhlYXJ0LCBhbmQgaXQgaXNuJ3QgZ29pbmcgYW55d2hlcmUuPC9wPgo=",
+          "PGZpZ3VyZSBjbGFzcz0ieC1rZWVwc2FrZSI+CjxidXR0b24gY2xhc3M9Ingta2VlcCIgdHlwZT0iYnV0dG9uIiBhcmlhLWxhYmVsPSJPcGVuIHBob3RvOiBZb3UgYW5kIHlvdXIgUGFwYSBqaSIgZGF0YS1jYXA9IllvdSBhbmQgeW91ciBQYXBhIGppLiBIaXMgbGl0dGxlIGdpcmwsIGFsd2F5cy4iPjxpbWcgc3JjPSJAcGFwYSIgd2lkdGg9IjY0MCIgaGVpZ2h0PSI2NDAiIGxvYWRpbmc9ImxhenkiIGRlY29kaW5nPSJhc3luYyIgYWx0PSJNYXJ5YW0gYXMgYSBiYWJ5IGluIGhlciBQYXBhIGppJ3MgYXJtcyIgLz48L2J1dHRvbj4KPGZpZ2NhcHRpb24gY2xhc3M9Ingta2VlcF9fY2FwIj5Zb3UgYW5kIHlvdXIgUGFwYSBqaS4gSGlzIGxpdHRsZSBnaXJsLCBhbHdheXMuPC9maWdjYXB0aW9uPgo8L2ZpZ3VyZT4K",
+          "PGRpdiBjbGFzcz0ieC12b2ljZXMiPgo8aDMgY2xhc3M9Ingtdm9pY2VzX190aXRsZSI+SGlzIHZvaWNlLCBmb3IgeW91ciBoZWFydDwvaDM+CjxwIGNsYXNzPSJ4LXZvaWNlc19fc3ViIj5Gb3Igd2hlbmV2ZXIgeW91IG5lZWQgdG8gaGVhciBoaW0uPC9wPgo8ZGl2IGNsYXNzPSJ4LXZvaWNlIiBkYXRhLWR1cmF0aW9uPSIxMjgiPgo8YXVkaW8gcHJlbG9hZD0ibm9uZSIgc3JjPSJAdm9pY2VvbmUiPjwvYXVkaW8+CjxidXR0b24gY2xhc3M9Ingtdm9pY2VfX3BsYXkiIHR5cGU9ImJ1dHRvbiIgYXJpYS1sYWJlbD0iUGxheSBQYXBhIGppJ3Mgdm9pY2Ugbm90ZSAxIj48c3ZnIGNsYXNzPSJ4LXZvaWNlX19pLXBsYXkiIHZpZXdCb3g9IjAgMCAyNCAyNCIgYXJpYS1oaWRkZW49InRydWUiPjxwYXRoIGQ9Ik04IDUuNXYxM2ExIDEgMCAwIDAgMS41Ljg2bDEwLjItNi41YTEgMSAwIDAgMCAwLTEuNzJMOS41IDQuNjRBMSAxIDAgMCAwIDggNS41eiIgLz48L3N2Zz48c3ZnIGNsYXNzPSJ4LXZvaWNlX19pLXBhdXNlIiB2aWV3Qm94PSIwIDAgMjQgMjQiIGFyaWEtaGlkZGVuPSJ0cnVlIj48cmVjdCB4PSI2LjUiIHk9IjUiIHdpZHRoPSI0IiBoZWlnaHQ9IjE0IiByeD0iMS40IiAvPjxyZWN0IHg9IjEzLjUiIHk9IjUiIHdpZHRoPSI0IiBoZWlnaHQ9IjE0IiByeD0iMS40IiAvPjwvc3ZnPjwvYnV0dG9uPgo8ZGl2IGNsYXNzPSJ4LXZvaWNlX19ib2R5Ij4KPHAgY2xhc3M9Ingtdm9pY2VfX25hbWUiPlBhcGEgamkncyB2b2ljZSBub3RlIDE8L3A+CjxkaXYgY2xhc3M9Ingtdm9pY2VfX2JhciIgcm9sZT0ic2xpZGVyIiB0YWJpbmRleD0iMCIgYXJpYS1sYWJlbD0iU2VlayBpbiBQYXBhIGppJ3Mgdm9pY2Ugbm90ZSAxIiBhcmlhLXZhbHVlbWluPSIwIiBhcmlhLXZhbHVlbWF4PSIxMjgiIGFyaWEtdmFsdWVub3c9IjAiIGFyaWEtdmFsdWV0ZXh0PSIwOjAwIG9mIDI6MDgiPjxzcGFuIGNsYXNzPSJ4LXZvaWNlX190cmFjayI+PHNwYW4gY2xhc3M9Ingtdm9pY2VfX2ZpbGwiPjwvc3Bhbj48c3BhbiBjbGFzcz0ieC12b2ljZV9fa25vYiI+PC9zcGFuPjwvc3Bhbj48L2Rpdj4KPHAgY2xhc3M9Ingtdm9pY2VfX3RpbWUiPjxzcGFuIGNsYXNzPSJ4LXZvaWNlX19jdXIiPjA6MDA8L3NwYW4+IC8gPHNwYW4gY2xhc3M9Ingtdm9pY2VfX2R1ciI+MjowODwvc3Bhbj48L3A+CjwvZGl2Pgo8c3BhbiBjbGFzcz0ieC12b2ljZV9fd2F2ZSIgYXJpYS1oaWRkZW49InRydWUiPjxpPjwvaT48aT48L2k+PGk+PC9pPjxpPjwvaT48aT48L2k+PC9zcGFuPgo8L2Rpdj4KPGRpdiBjbGFzcz0ieC12b2ljZSIgZGF0YS1kdXJhdGlvbj0iOTUiPgo8YXVkaW8gcHJlbG9hZD0ibm9uZSIgc3JjPSJAdm9pY2V0d28iPjwvYXVkaW8+CjxidXR0b24gY2xhc3M9Ingtdm9pY2VfX3BsYXkiIHR5cGU9ImJ1dHRvbiIgYXJpYS1sYWJlbD0iUGxheSBQYXBhIGppJ3Mgdm9pY2Ugbm90ZSAyIj48c3ZnIGNsYXNzPSJ4LXZvaWNlX19pLXBsYXkiIHZpZXdCb3g9IjAgMCAyNCAyNCIgYXJpYS1oaWRkZW49InRydWUiPjxwYXRoIGQ9Ik04IDUuNXYxM2ExIDEgMCAwIDAgMS41Ljg2bDEwLjItNi41YTEgMSAwIDAgMCAwLTEuNzJMOS41IDQuNjRBMSAxIDAgMCAwIDggNS41eiIgLz48L3N2Zz48c3ZnIGNsYXNzPSJ4LXZvaWNlX19pLXBhdXNlIiB2aWV3Qm94PSIwIDAgMjQgMjQiIGFyaWEtaGlkZGVuPSJ0cnVlIj48cmVjdCB4PSI2LjUiIHk9IjUiIHdpZHRoPSI0IiBoZWlnaHQ9IjE0IiByeD0iMS40IiAvPjxyZWN0IHg9IjEzLjUiIHk9IjUiIHdpZHRoPSI0IiBoZWlnaHQ9IjE0IiByeD0iMS40IiAvPjwvc3ZnPjwvYnV0dG9uPgo8ZGl2IGNsYXNzPSJ4LXZvaWNlX19ib2R5Ij4KPHAgY2xhc3M9Ingtdm9pY2VfX25hbWUiPlBhcGEgamkncyB2b2ljZSBub3RlIDI8L3A+CjxkaXYgY2xhc3M9Ingtdm9pY2VfX2JhciIgcm9sZT0ic2xpZGVyIiB0YWJpbmRleD0iMCIgYXJpYS1sYWJlbD0iU2VlayBpbiBQYXBhIGppJ3Mgdm9pY2Ugbm90ZSAyIiBhcmlhLXZhbHVlbWluPSIwIiBhcmlhLXZhbHVlbWF4PSI5NSIgYXJpYS12YWx1ZW5vdz0iMCIgYXJpYS12YWx1ZXRleHQ9IjA6MDAgb2YgMTozNSI+PHNwYW4gY2xhc3M9Ingtdm9pY2VfX3RyYWNrIj48c3BhbiBjbGFzcz0ieC12b2ljZV9fZmlsbCI+PC9zcGFuPjxzcGFuIGNsYXNzPSJ4LXZvaWNlX19rbm9iIj48L3NwYW4+PC9zcGFuPjwvZGl2Pgo8cCBjbGFzcz0ieC12b2ljZV9fdGltZSI+PHNwYW4gY2xhc3M9Ingtdm9pY2VfX2N1ciI+MDowMDwvc3Bhbj4gLyA8c3BhbiBjbGFzcz0ieC12b2ljZV9fZHVyIj4xOjM1PC9zcGFuPjwvcD4KPC9kaXY+CjxzcGFuIGNsYXNzPSJ4LXZvaWNlX193YXZlIiBhcmlhLWhpZGRlbj0idHJ1ZSI+PGk+PC9pPjxpPjwvaT48aT48L2k+PGk+PC9pPjxpPjwvaT48L3NwYW4+CjwvZGl2Pgo8L2Rpdj4KPA==",
+          "ZmlndXJlIGNsYXNzPSJ4LWF5YWgiPgo8cCBjbGFzcz0ieC1hciIgZGlyPSJydGwiIGxhbmc9ImFyIj7Yo9mO2YTZjtinINio2ZDYsNmQ2YPZktix2ZAg2KfZhNmE2Y7ZkdmH2ZAg2KrZjti32ZLZhdmO2KbZkNmG2Y/ZkSDYp9mE2ZLZgtmP2YTZj9mI2KjZjzwvcD4KPGZpZ2NhcHRpb24+CjxwIGNsYXNzPSJ4LWF5YWhfX2VuIj7igJxVbnF1ZXN0aW9uYWJseSwgYnkgdGhlIHJlbWVtYnJhbmNlIG9mIEFsbGFoIGhlYXJ0cyBmaW5kIHJlc3Qu4oCdPC9wPgo8cCBjbGFzcz0ieC1heWFoX19yZWYiPlN1cmFoIEFyLVJhJ2QgMTM6Mjg8L3A+CjwvZmlnY2FwdGlvbj4KPC9maWd1cmU+CjxmaWd1cmUgY2xhc3M9IngtYXlhaCI+CjxwIGNsYXNzPSJ4LWFyIiBkaXI9InJ0bCIgbGFuZz0iYXIiPtmK2Y7YpyDYo9mO2YrZjtmR2KrZj9mH2Y7YpyDYp9mE2YbZjtmR2YHZktiz2Y8g2KfZhNmS2YXZj9i32ZLZhdmO2KbZkNmG2Y7Zkdip2Y8g250g2KfYsdmS2KzZkNi52ZDZiiDYpdmQ2YTZjtmJ2bAg2LHZjtio2ZDZkdmD2ZAg2LHZjtin2LbZkNmK2Y7YqdmLINmF2Y7YsdmS2LbZkNmK2Y7Zkdip2Ysg250g2YHZjtin2K/Zktiu2Y/ZhNmQ2Yog2YHZkNmKINi52ZDYqNmO2KfYr9mQ2Yog250g2YjZjtin2K/Zktiu2Y/ZhNmQ2Yog2KzZjtmG2Y7Zkdiq2ZDZijwvcD4KPGZpZ2NhcHRpb24+CjxwIGNsYXNzPSJ4LWF5YWhfX2VuIj7igJxPIHJlYXNzdXJlZCBzb3VsLCByZXR1cm4gdG8geW91ciBMb3JkLCB3ZWxsLXBsZWFzZWQgYW5kIHBsZWFzaW5nIHRvIEhpbSwgYW5kIGVudGVyIGFtb25nIE15IHJpZ2h0ZW91cyBzZXJ2YW50cywgYW5kIGVudGVyIE15IFBhcmFkaXNlLuKAnTwvcD4KPHAgY2xhc3M9IngtYXlhaF9fcmVmIj5TdXJhaCBBbC1GYWpyIDg5OjI34oCTMzA8L3A+CjwvZmlnY2FwdGlvbj4KPC9maWd1cmU+CjxwIGNsYXNzPSJ4LWFiYnVfX3dvcmRzIj5Ub2RheSwgYSBzdGFyIGlzIHNoaW5pbmcgYSBsaXR0bGUgYnJpZ2h0ZXIgZm9yIHlvdS48L3A+CjxmaWd1cmUgY2xhc3M9IngtYXlhaCI+CjxwIGNsYXNzPSJ4LWFyIiBkaXI9InJ0bCIgbGFuZz0iYXIiPtmB2Y7YpdmQ2YbZjtmRINmF2Y7YudmOINin2YTZkti52Y/Ys9mS2LHZkCDZitmP2LPZktix2YvYpyDbnSDYpdmQ2YbZjtmRINmF2Y7YudmOINin2YTZkti52Y/Ys9mS2LHZkCDZitmP2LPZktix2YvYpzwvcD4KPGZpZ2NhcHRpb24+CjxwIGNsYXNzPSJ4LWF5YWhfX2VuIj7igJxGb3IgaW5kZWVkLCB3aXRoIGhhcmRzaGlwIGNvbWVzIGVhc2UuIEluZGVlZCwgd2l0aCBoYXJkc2hpcCBjb21lcyBlYXNlLuKAnTwvcD4KPHAgY2xhc3M9IngtYXlhaF9fcmVmIj5TdXJhaCBBc2gtU2hhcmggOTQ6NeKAkzY8L3A+CjwvZmlnY2FwdGlvbj4KPC9maWd1cmU+CjxmaWd1cmUgY2xhc3M9IngtYXlhaCI+CjxwIGNsYXNzPSJ4LWFyIiBkaXI9InJ0bCIgbGFuZz0iYXIiPtmE2Y7YpyDZitmP2YPZjtmE2ZDZkdmB2Y8g2KfZhNmE2Y7ZkdmH2Y8g2YbZjtmB2ZLYs9mL2Kcg2KXZkNmE2Y7ZkdinINmI2Y/Ys9mS2LnZjtmH2Y7YpzwvcD4KPGZpZ2NhcHRpb24+CjxwIGNsYXNzPSJ4LWF5YWhfX2VuIj7igJxBbGxhaCBkb2VzIG5vdCBidXJkZW4gYSBzb3VsIGJleW9uZCB3aGF0IGl0IGNhbiBiZWFyLuKAnTwvcD4KPHAgY2xhc3M9IngtYXlhaF9fcmVmIj5TdXJhaCBBbC1CYXFhcmFoIDI6Mjg2PC9wPgo8L2ZpZ2NhcHRpb24+CjwvZmlndXJlPgo8cCBjbGFzcz0iZmluZXByaW50Ij5NaXNzaW5nIGhpbSBpcyBsb3ZlIHRvby4gWW91IG5ldmVyIGhhdmUgdG8gY2FycnkgaXQgYWxvbmUuPC9w",
           "Pgo=",
           "PGRpdiBjbGFzcz0ieC1kdQ==",
           "YSI+CjxwIGNsYXNzPSJ4LWR1YV9fbGFiZWwiPkEg",
@@ -1350,13 +1413,14 @@
           document.documentElement.style.overflow = "";
           if (lastBtn) lastBtn.focus({ preventScroll: true });
         }
-        document.querySelectorAll(".x-polaroid").forEach(function (btn) {
+        document.querySelectorAll(".x-polaroid, .x-keep").forEach(function (btn) {
           btn.addEventListener("click", function () {
             var img = btn.querySelector("img");
             lastBtn = btn;
             lbImg.src = img.currentSrc || img.src;
             lbImg.alt = img.alt;
-            lbCap.textContent = btn.querySelector(".x-polaroid__cap").textContent;
+            var capEl = btn.querySelector(".x-polaroid__cap");
+            lbCap.textContent = btn.getAttribute("data-cap") || (capEl ? capEl.textContent : "");
             lb.classList.add("is-open");
             lb.setAttribute("aria-hidden", "false");
             document.documentElement.style.overflow = "hidden";
@@ -1365,6 +1429,75 @@
         });
         lb.addEventListener("click", closeLb);
         document.addEventListener("keydown", function (e) { if (e.key === "Escape") closeLb(); });
+
+        /* Papa ji's voice notes: one plays at a time, tap or drag the bar to seek, arrow keys too */
+        var voices = [].slice.call(document.querySelectorAll(".x-voice"));
+        function fmt(t) { t = Math.max(0, Math.floor(t || 0)); return Math.floor(t / 60) + ":" + pad(t % 60); }
+        voices.forEach(function (card) {
+          var au = card.querySelector("audio");
+          var btn = card.querySelector(".x-voice__play");
+          var bar = card.querySelector(".x-voice__bar");
+          var cur = card.querySelector(".x-voice__cur");
+          var durEl = card.querySelector(".x-voice__dur");
+          var name = card.querySelector(".x-voice__name").textContent;
+          var fallback = parseFloat(card.getAttribute("data-duration")) || 0;
+          var pending = null, dragging = false;
+          function dur() { return isFinite(au.duration) && au.duration > 0 ? au.duration : fallback; }
+          function now() { return pending !== null ? pending : au.currentTime; }
+          function paint() {
+            var d = dur(), t = Math.min(now(), d);
+            bar.style.setProperty("--p", (d ? (t / d) * 100 : 0) + "%");
+            cur.textContent = fmt(t);
+            durEl.textContent = fmt(d);
+            bar.setAttribute("aria-valuemax", String(Math.round(d)));
+            bar.setAttribute("aria-valuenow", String(Math.round(t)));
+            bar.setAttribute("aria-valuetext", fmt(t) + " of " + fmt(d));
+          }
+          function seek(t) {
+            t = Math.max(0, Math.min(dur(), t));
+            if (au.readyState >= 1) { au.currentTime = t; pending = null; } else pending = t;
+            paint();
+          }
+          function setState(on) {
+            card.classList.toggle("is-playing", on);
+            btn.setAttribute("aria-label", (on ? "Pause " : "Play ") + name);
+          }
+          btn.addEventListener("click", function () {
+            if (au.paused) {
+              voices.forEach(function (o) { if (o !== card) o.querySelector("audio").pause(); });
+              var p = au.play();
+              if (p && p.catch) p.catch(function () { setState(false); });
+            } else au.pause();
+          });
+          au.addEventListener("loadedmetadata", function () { if (pending !== null) { au.currentTime = Math.min(pending, dur()); pending = null; } paint(); });
+          au.addEventListener("play", function () { setState(true); });
+          au.addEventListener("pause", function () { setState(false); });
+          au.addEventListener("ended", function () { setState(false); au.currentTime = 0; paint(); });
+          au.addEventListener("timeupdate", function () { if (!dragging) paint(); });
+          function fromX(x) { var r = bar.getBoundingClientRect(); return ((x - r.left) / r.width) * dur(); }
+          bar.addEventListener("pointerdown", function (e) {
+            dragging = true;
+            if (bar.setPointerCapture) bar.setPointerCapture(e.pointerId);
+            seek(fromX(e.clientX));
+          });
+          bar.addEventListener("pointermove", function (e) { if (dragging) seek(fromX(e.clientX)); });
+          function endDrag() { dragging = false; }
+          bar.addEventListener("pointerup", endDrag);
+          bar.addEventListener("pointercancel", endDrag);
+          bar.addEventListener("keydown", function (e) {
+            var k = e.key, t = now();
+            if (k === "ArrowRight" || k === "ArrowUp") seek(t + 5);
+            else if (k === "ArrowLeft" || k === "ArrowDown") seek(t - 5);
+            else if (k === "PageUp") seek(t + 15);
+            else if (k === "PageDown") seek(t - 15);
+            else if (k === "Home") seek(0);
+            else if (k === "End") seek(dur());
+            else if (k === " " || k === "Enter") btn.click();
+            else return;
+            e.preventDefault();
+          });
+          paint();
+        });
 
         /* quiet, faint stars for Abbu's night sky */
         var sky = document.querySelector(".x-sky");
@@ -1386,7 +1519,7 @@
         /* scroll reveal with staggered groups, and pausing animated scenes while offscreen */
         if (!reduce && "IntersectionObserver" in window) {
           var targets = [];
-          document.querySelectorAll(".main .head, .x-divider, .x-envelope, .x-polaroids > li, .x-kitty .cards > div, .x-kitty .step, .x-night .band, .x-ayah, .x-abbu__words, .x-dua, .x-wish, .x-closing, .x-ow > li, .x-jarwrap, .x-present").forEach(function (el) {
+          document.querySelectorAll(".main .head, .x-divider, .x-envelope, .x-polaroids > li, .x-kitty .cards > div, .x-kitty .step, .x-night .band, .x-ayah, .x-abbu__words, .x-keepsake, .x-voices, .x-dua, .x-wish, .x-closing, .x-ow > li, .x-jarwrap, .x-present").forEach(function (el) {
             var sib = el.parentElement ? [].slice.call(el.parentElement.children).filter(function (c) { return c.tagName === el.tagName; }) : [];
             var grouped = el.matches(".x-polaroids > li, .cards > div, .step, .x-ow > li");
             el.style.setProperty("--i", grouped ? Math.min(sib.indexOf(el), 6) : 0);
